@@ -3,10 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% block header %} Navigation here ! {% endblock %}
         {% block body %}{% endblock %}
+        {% block footer %} Footer goes here ! {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
