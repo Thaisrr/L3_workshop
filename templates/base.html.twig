@@ -5,7 +5,18 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
     </head>
     <body>
-        {% block header %} Navigation here ! {% endblock %}
+        {% block header %}
+
+            <nav>
+                <ul>
+                    <li><a href="create-article">Ecrire un article</a> </li>
+                    <li><a href="login">Se connecter</a> </li>
+                    <li><a href="article">Articles</a></li>
+                    <li><a href="register">S'inscrire</a> </li>
+                </ul>
+            </nav>
+
+        {% endblock %}
         {% block body %}{% endblock %}
         {% block footer %} Footer goes here ! {% endblock %}
         {% block javascripts %}{% endblock %}
