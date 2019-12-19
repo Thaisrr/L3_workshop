@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 class ArticleController extends AbstractController
 {
@@ -30,8 +31,10 @@ class ArticleController extends AbstractController
      * @param Request $request
      * @return RedirectResponse|Response
      */
-    public function createArticle(Request $request) {
+    public function createArticle(Request $request, Security $security) {
+        $usr = $security->getUser();
         $article = new Article();
+        $article->setAuthor($usr);
         $form = $this->createForm(ArticleFormType::class, $article);
 
         $form->add('ajouter', SubmitType::class, [

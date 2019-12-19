@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Constantes\Subject;
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,8 +15,6 @@ class ArticleFormType extends AbstractType
         $builder
             ->add('title')
             ->add('text')
-            ->add('likes')
-            ->add('author')
             ->add('subject')
         ;
     }

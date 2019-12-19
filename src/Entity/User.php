@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -46,11 +47,6 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $birthdate;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Address", mappedBy="user")
@@ -170,17 +166,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTimeInterface
-    {
-        return $this->birthdate;
-    }
-
-    public function setBirthdate(\DateTimeInterface $birthdate): self
-    {
-        $this->birthdate = $birthdate;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Address[]
