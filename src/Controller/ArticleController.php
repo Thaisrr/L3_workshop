@@ -41,7 +41,33 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/create-article", name="create-article")
+     * @Route("profile/friends-articles", name="friends-articles")
+     */
+    public function getFriendsArticles(Security $security) {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $usr = $security->getUser();
+        $articles = [];
+
+        foreach ($usr->getFriends() as $f) {
+            foreach ($f->getArticles() as $a ) {
+                array_push($articles, $a);
+            }
+        }
+
+        foreach ($articles as $art) {
+            $art->isLiked = false;
+            foreach ($art->getUsersWhoLikeIt() as $u) {
+                $art->isLiked = ($u === $usr)? true : false;
+            }
+        }
+
+        return $this->render('article/friends-articles.html.twig', [
+            'articles' => $articles
+        ]);
+    }
+
+    /**
+     * @Route("profile/create-article", name="create-article")
      * @param Request $request
      * @return RedirectResponse|Response
      */
@@ -76,7 +102,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/like/{id}", name="like")
+     * @Route("profile/like/{id}", name="like")
      */
     public function likeArticle (int $id, Security $security)  {
         $repo = $this->getDoctrine()->getRepository(Article::class);

@@ -8,6 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
+/**
+ * Class UserController
+ * @package App\Controller
+ * @Route("/profile")
+ */
 class UserController extends AbstractController
 
 {

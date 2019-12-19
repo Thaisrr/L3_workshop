@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
 class HomeController extends AbstractController {
@@ -14,8 +17,9 @@ class HomeController extends AbstractController {
      * @param Environment $twig
      * @return
      */
-    public function index(Environment $twig) {
-        $content = $this->render('home/index.html.twig');
-            return new Response($content);
+    public function index(Environment $twig, Security $security) {
+
+        return $this->render('home/index.html.twig', [
+        ]);
     }
 }

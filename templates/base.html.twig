@@ -17,10 +17,18 @@
 
             <nav>
                 <ul>
+                    <li><a href="article">Home -> tous les articles</a></li>
+                    {% if app.user %}
                     <li><a href="create-article">Ecrire un article</a> </li>
+                    <li><a href="friends-articles">Mon fil -> accès aux articles de mes amis</a> </li>
+                    <li><a href="logout">Se déconnecter</a> </li>
+                    {% else %}
                     <li><a href="login">Se connecter</a> </li>
-                    <li><a href="article">Articles</a></li>
                     <li><a href="register">S'inscrire</a> </li>
+                    {% endif %}
+
+
+
                 </ul>
             </nav>
 

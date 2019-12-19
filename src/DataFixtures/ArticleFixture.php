@@ -36,6 +36,6 @@ class ArticleFixture extends Fixture
          $article->setSubject($subject);
 
         $manager->flush();
-         * */
+         **/
     }
 }

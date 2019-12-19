@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; display: flex; justify-content: space-evenly}
+        .card { width: 40%; border: black thin solid; padding: 10px; margin: 20px}
+    </style>
+
+
+
+    <h1> Les dernières news</h1>
+
+    <div class="example-wrapper">
+
+        {% for art in articles %}
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ art.title }}</h3>
+                    <hr>
+                    <a href="{{ path('user-profile', {'id' : art.author.id}) }}" title="Voir le profil">
+                        <blockquote>{{ art.author.firstname }} {{ art.author.lastname }}</blockquote>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <p>{{ art.text }}</p>
+                </div>
+                <div class="card-footer">
+                    <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
+                    {% if art.isLiked == false %}
+                        <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
+
+                    {% else %}
+                        <p>Vous aimez déjà ce contenu</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}
