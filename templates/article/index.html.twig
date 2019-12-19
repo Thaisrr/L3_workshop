@@ -18,13 +18,20 @@
         <div class="card-header">
             <h3>{{ art.title }}</h3>
             <hr>
+            <blockquote>{{ art.author.firstname }} {{ art.author.lastname }}</blockquote>
         </div>
         <div class="card-body">
             <p>{{ art.text }}</p>
         </div>
         <div class="card-footer">
-            <blockquote>{{ art.author.firstname }} {{ art.author.lastname }}</blockquote>
+            <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
+            {% if art.isLiked == true %}
+                 <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
+            {% else %}
+                <p>Vous aimez déjà ce contenu</p>
+            {% endif %}
         </div>
+
     </div>
     {% endfor %}
 

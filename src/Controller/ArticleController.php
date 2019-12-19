@@ -16,13 +16,22 @@ use Symfony\Component\Security\Core\Security;
 
 class ArticleController extends AbstractController
 {
+
     /**
      * @Route("/article", name="article")
      */
-    public function index()
+    public function index(Security $security)
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
+        $usr = $security->getUser();
+
+
+        foreach ($articles as $art) {
+            foreach ($art->getUsersWhoLikeIt() as $u) {
+                $art->isLike = ($u == $usr);
+            }
+        }
 
 
         return $this->render('article/index.html.twig', [
@@ -63,6 +72,26 @@ class ArticleController extends AbstractController
         return $this->render('article/form.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/like/{id}", name="like")
+     */
+    public function likeArticle (int $id, Security $security)  {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $article = new Article();
+        $article = $repo->find($id);
+        $article->setLikes($article->getLikes() + 1);
+        $usr = $security->getUser();
+        $article->addUsersWhoLikeIt($usr);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute('article');
+
     }
 
 }

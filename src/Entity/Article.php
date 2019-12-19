@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,19 @@ class Article
      * @ORM\JoinColumn(nullable=false)
      */
     private $subject;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User")
+     */
+    private $usersWhoLikeIt;
+
+    public $isLiked;
+
+
+    public function __construct()
+    {
+        $this->usersWhoLikeIt = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -105,6 +120,32 @@ class Article
     public function setSubject(?Subject $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsersWhoLikeIt(): Collection
+    {
+        return $this->usersWhoLikeIt;
+    }
+
+    public function addUsersWhoLikeIt(User $usersWhoLikeIt): self
+    {
+        if (!$this->usersWhoLikeIt->contains($usersWhoLikeIt)) {
+            $this->usersWhoLikeIt[] = $usersWhoLikeIt;
+        }
+
+        return $this;
+    }
+
+    public function removeUsersWhoLikeIt(User $usersWhoLikeIt): self
+    {
+        if ($this->usersWhoLikeIt->contains($usersWhoLikeIt)) {
+            $this->usersWhoLikeIt->removeElement($usersWhoLikeIt);
+        }
 
         return $this;
     }
