@@ -33,7 +33,6 @@ public function load(ObjectManager $manager)
         $user->setLastname('Dupond');
         $date = new \DateTime();
         $user->setRoles(['ROLE_ADMIN']);
-         $manager->persist($user);
 
          $manager->persist($user);
         $manager->flush();

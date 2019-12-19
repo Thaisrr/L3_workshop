@@ -28,8 +28,9 @@ class ArticleController extends AbstractController
 
 
         foreach ($articles as $art) {
+            $art->isLiked = false;
             foreach ($art->getUsersWhoLikeIt() as $u) {
-                $art->isLike = ($u == $usr);
+                $art->isLiked = ($u === $usr)? true : false;
             }
         }
 

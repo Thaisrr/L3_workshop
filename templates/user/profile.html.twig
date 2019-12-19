@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ user.firstname }} {{ user.lastname }}</h1>
+
+    <h3>Articles : </h3>
+
+    {% for art in user.getArticles()  %}
+
+    <div class="card">
+        <div class="card-header">
+            <h3>{{ art.title }}</h3>
+            <hr>
+        </div>
+        <div class="card-body">
+            <p>{{ art.text }}</p>
+        </div>
+        <div class="card-footer">
+            <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
+            {% if art.isLiked == false %}
+                <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
+            {% else %}
+                <p>Vous aimez déjà ce contenu</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% endfor %}
+
+
+    {% if isMine == false %}
+        {% if isFriend == false %}
+    <a href="{{ path('add-friend', {'id' : user.id}) }}">Suivre {{ user.firstname }}</a>
+        {% endif %}
+    {% endif %}
+
+    {% if isFriend == true %}
+    <p>Vous suivez déjà cette {{user.firstname}}.</p>
+    {% endif %}
+
+    <h3>Amis : </h3>
+
+    {% for friend in user.getFriends() %}
+    <ul>
+        <li>
+            <a href="{{ path('user-profile', {'id' : friend.id}) }}" title="Voir le profil">
+                {{ friend.firstName }} {{ friend.lastName }}
+            </a>
+        </li>
+    </ul>
+    {% endfor %}
+
+{% endblock %}
