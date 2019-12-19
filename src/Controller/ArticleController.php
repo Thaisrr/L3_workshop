@@ -21,8 +21,12 @@ class ArticleController extends AbstractController
      */
     public function index()
     {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $articles = $repo->findAll();
+
+
         return $this->render('article/index.html.twig', [
-            'controller_name' => 'ArticleController',
+            'articles' => $articles,
         ]);
     }
 
@@ -35,22 +39,25 @@ class ArticleController extends AbstractController
         $usr = $security->getUser();
         $article = new Article();
         $article->setAuthor($usr);
+        $article->setLikes(0);
         $form = $this->createForm(ArticleFormType::class, $article);
 
         $form->add('ajouter', SubmitType::class, [
             'label' => 'Ajouter',
             'attr' => array( 'class' => 'btn btn-outline-info')
         ]);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article = $form.getData();
 
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+           // $article = $form.getData();
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
 
             return $this->redirectToRoute('article');
         }
-        $form->handleRequest($request);
 
 
         return $this->render('article/form.html.twig', [
