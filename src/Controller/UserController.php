@@ -53,7 +53,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/profile.html.twig', [
-            'user' => $user, 'isMine' => $isMine, 'isFriend' => $isFriend
+            'user' => $user, 'isMine' => $isMine, 'isFriend' => $isFriend, 'articles' => $articles
         ]);
     }
 
@@ -66,7 +66,7 @@ class UserController extends AbstractController
         $user = $repo->find($id);
 
         $current = $security->getUser();
-        $current->addFriend($user);
+        $user->addFriend($current);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($current);

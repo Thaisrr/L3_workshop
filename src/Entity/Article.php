@@ -52,10 +52,16 @@ class Article
 
     public $isLiked;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Commentary", mappedBy="article", orphanRemoval=true)
+     */
+    private $commentaries;
+
 
     public function __construct()
     {
         $this->usersWhoLikeIt = new ArrayCollection();
+        $this->commentaries = new ArrayCollection();
     }
 
 
@@ -145,6 +151,37 @@ class Article
     {
         if ($this->usersWhoLikeIt->contains($usersWhoLikeIt)) {
             $this->usersWhoLikeIt->removeElement($usersWhoLikeIt);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentary[]
+     */
+    public function getCommentaries(): Collection
+    {
+        return $this->commentaries;
+    }
+
+    public function addCommentary(Commentary $commentary): self
+    {
+        if (!$this->commentaries->contains($commentary)) {
+            $this->commentaries[] = $commentary;
+            $commentary->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentary(Commentary $commentary): self
+    {
+        if ($this->commentaries->contains($commentary)) {
+            $this->commentaries->removeElement($commentary);
+            // set the owning side to null (unless already changed)
+            if ($commentary->getArticle() === $this) {
+                $commentary->setArticle(null);
+            }
         }
 
         return $this;

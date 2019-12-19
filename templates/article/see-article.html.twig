@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        <h1 class="card-title">{{ art.title }}</h1>
+        <hr>
+        <a href="{{ path('user-profile', {'id' : art.author.id}) }}" title="Voir le profil">
+            <blockquote>{{ art.author.firstname }} {{ art.author.lastname }}</blockquote>
+        </a>
+    <div class="card-body">
+        <p>{{ art.text }}</p>
+    </div>
+    <div class="card-footer">
+        <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
+        {% if art.isLiked == false %}
+            <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
+
+        {% else %}
+            <p>Vous aimez déjà ce contenu</p>
+        {% endif %}
+        <button onclick="displayCommentaries()"  title="Voir les commentaires" type="button" class="btn btn-outline-primary"><i class="fa fa-comments"></i></button>
+        <button onclick="displayComInput()" title="Ajouter un commentaire" class="btn btn-outline-primary"><i class="fa fa-comments"></i></button>
+        <div style="display: none" id="commentaries" >
+            {% for com in art.commentaries %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ com.author.firstname }} {{ com.author.lastname }}</h5>
+                        <p class="card-text">{{ com.text }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div style="display: none" id="comInput">
+            {{ form(form) }}
+        </div>
+
+    </div>
+
+</div>
+
+
+    <!--------------------------------------------------------------- JavaScript ------------------------------------------------------->
+    <script>
+        const com = document.getElementById("commentaries");
+        const comInput = document.getElementById("comInput");
+        function displayCommentaries() {
+            com.style.display = (com.style.display == 'none')? 'block' : 'none';
+        }
+
+        function displayComInput() {
+            comInput.style.display = (comInput.style.display == 'none')? 'block' : 'none';
+        }
+    </script>
+
+{% endblock %}

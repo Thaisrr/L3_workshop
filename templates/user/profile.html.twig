@@ -6,27 +6,30 @@
 
     <h3>Articles : </h3>
 
-    {% for art in user.getArticles()  %}
+    <div class="example-wrapper">
 
-    <div class="card">
-        <div class="card-header">
-            <h3>{{ art.title }}</h3>
-            <hr>
-        </div>
-        <div class="card-body">
-            <p>{{ art.text }}</p>
-        </div>
-        <div class="card-footer">
-            <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
-            {% if art.isLiked == false %}
-                <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
-            {% else %}
-                <p>Vous aimez déjà ce contenu</p>
-            {% endif %}
-        </div>
+        {% for art in articles %}
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ art.title }}</h3>
+                    <hr>
+                    <a href="{{ path('user-profile', {'id' : art.author.id}) }}" title="Voir le profil">
+                        <blockquote>{{ art.author.firstname }} {{ art.author.lastname }}</blockquote>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <p>{{ art.text }}</p>
+                </div>
+                <div class="card-footer">
+                    <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
+                    <a type="button" class="btn btn-outline-dark" href="{{ path('see-article', {'id': art.id}) }}">Lire l'article</a>
+                </div>
+
+            </div>
+        {% endfor %}
+
+
     </div>
-
-    {% endfor %}
 
 
     {% if isMine == false %}
@@ -36,7 +39,7 @@
     {% endif %}
 
     {% if isFriend == true %}
-    <p>Vous suivez déjà cette {{user.firstname}}.</p>
+    <p>Vous suivez déjà {{user.firstname}}.</p>
     {% endif %}
 
     <h3>Amis : </h3>

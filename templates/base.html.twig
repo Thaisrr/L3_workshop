@@ -11,20 +11,27 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
+
+        <!-- A supprimer ! ----->
+        <style>
+            .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; display: flex; justify-content: space-evenly}
+            .card { width: 40%; border: black thin solid; margin: 20px}
+        </style>
+
     </head>
     <body>
         {% block header %}
 
             <nav>
                 <ul>
-                    <li><a href="article">Home -> tous les articles</a></li>
+                    <li><a href="{{ path('article') }}">Home -> tous les articles</a></li>
                     {% if app.user %}
-                    <li><a href="create-article">Ecrire un article</a> </li>
-                    <li><a href="friends-articles">Mon fil -> accès aux articles de mes amis</a> </li>
-                    <li><a href="logout">Se déconnecter</a> </li>
+                    <li><a href="{{ path('create-article') }}">Ecrire un article</a> </li>
+                    <li><a href="{{path('friends-articles')}}">Mon fil -> accès aux articles de mes amis</a> </li>
+                    <li><a href="{{path('app_logout')}}">Se déconnecter</a> </li>
                     {% else %}
-                    <li><a href="login">Se connecter</a> </li>
-                    <li><a href="register">S'inscrire</a> </li>
+                    <li><a href="{{path('app_login')}}">Se connecter</a> </li>
+                    <li><a href="{{ path('app_register') }}">S'inscrire</a> </li>
                     {% endif %}
 
 
@@ -34,7 +41,7 @@
 
         {% endblock %}
 
-        {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
 
         {% block footer %} Footer goes here ! {% endblock %}
         {% block javascripts %}{% endblock %}

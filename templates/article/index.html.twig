@@ -2,15 +2,17 @@
 
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; display: flex; justify-content: space-evenly}
-    .card { width: 40%; border: black thin solid; padding: 10px; margin: 20px}
-</style>
+
 
 
 
     <h1> Les dernières news</h1>
-
+<!--
+    <a href="{{ path('article', {'param':'event'}) }}">Evénements</a>
+    <a href="{{path( 'article', { 'param': 'plan'})}}">Bons plans</a>
+    <a href="{{ path('article', {'param': 'article'}) }}">Articles</a>
+    <a href="{{path('article')}}">Tout voir</a>
+-->
     <div class="example-wrapper">
 
     {% for art in articles %}
@@ -27,16 +29,23 @@
         </div>
         <div class="card-footer">
             <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
-            {% if art.isLiked == false %}
-                 <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
-
-            {% else %}
-                <p>Vous aimez déjà ce contenu</p>
-            {% endif %}
+            <a type="button" class="btn btn-outline-dark" href="{{ path('see-article', {'id': art.id}) }}">Lire l'article</a>
         </div>
+
     </div>
     {% endfor %}
 
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentary;
+use App\Entity\Subject;
 use App\Entity\User;
 use App\Form\ArticleFormType;
+use App\Form\CommentaryFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,25 +21,92 @@ class ArticleController extends AbstractController
 {
 
     /**
-     * @Route("/article", name="article")
+     * @Route("article", name="article")
      */
-    public function index(Security $security)
+    public function index()
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
-        $usr = $security->getUser();
 
-
-        foreach ($articles as $art) {
-            $art->isLiked = false;
-            foreach ($art->getUsersWhoLikeIt() as $u) {
-                $art->isLiked = ($u === $usr)? true : false;
+     /*   $repoSubject = $this->getDoctrine()->getRepository(Subject::class);
+        $subjects = $repoSubject->findAll();
+        $event = new Subject();
+        $plan = new Subject();
+        $article = new Subject();
+        foreach ($subjects as $s) {
+            $name = $s->getName();
+            switch ($name) {
+                case "events" || "event":
+                    $event = $s;
+                    break;
+                case "plan" || "plans" :
+                    $plan = $s;
+                    break;
+                case "article" || "articles":
+                    $article = $s;
+                    break;
             }
         }
 
 
+        switch ($param) {
+            case "event":
+                $articles = $repo->findBy(
+                    array('subject' => $event)
+                );
+                echo $param;
+                break;
+            case "plan":
+                $articles = $repo->findBy(
+                    array('subject' => $plan)
+                );
+                break;
+            case "article":
+                  $articles = $repo->findBy(
+                      array('subject' => $article)
+                  );
+                break;
+            default:
+                $articles = $repo->findAll();
+        } */
+
+
+
         return $this->render('article/index.html.twig', [
             'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("profile/article/{id}", name="see-article")
+     */
+    public function seeArticle(int $id, Security $security, Request $request) {
+        $repo = $this->getDoctrine()->getRepository(Article::class);
+        $article = $repo->find($id);
+        $usr = $security->getUser();
+        $commentary = new Commentary();
+        $commentary->setAuthor($usr)->setArticle($article);
+        $isLiked = ($article->getUsersWhoLikeIt() == $usr) ? true : false;
+
+        $form = $this->createForm(CommentaryFormType::class, $commentary);
+        $form->add('ajouter', SubmitType::class, [
+            'label' => 'Ajouter',
+            'attr' => array( 'class' => 'btn btn-outline-info')
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $article = $form.getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commentary);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('article');
+        }
+
+        return $this->render('article/see-article.html.twig', [
+            'art' => $article,
+            'form' => $form->createView()
         ]);
     }
 
