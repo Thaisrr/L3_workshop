@@ -2,8 +2,26 @@
 
 {% block body %}
 
-<p>Bienvenue sur l'accueil ! </p>
-
-    <a href="login">Se connecter</a>
+<!-- HP -->
+  <section>
+    <div class="search-part" style="background-image: url('{{ asset('dist/imgs/lille-bg.png') }}');">
+        <h1 class="title-search">Une communauté aux services de vos voyageurs</h1>
+        <h2 class="subtitle-search">Communiquer, s'entraider, se rejoindre</h2>
+        <div class="search-bar">
+          <img src='{{ asset('dist/imgs/search.svg') }}' />
+          <input class="search-input" type="text"
+            placeholder="Chercher un hôte, un évènement, une ville, un sujet..." />
+        </div>
+        <a class="join-us" href="/">Rejoindre la communauté</a>
+      </div>
+  </section>
+  <section class="list-host">
+    <div class="host-title">
+      <h2>Les hôtes que vous connaissez peut être</h2>
+      <img src="{{ asset('dist/imgs/fil.png') }}" alt=""/>
+    </div>
+    <a class="see-all-host">Voir tous les hôtes</a>
+  </section>
+  <!-- FIN HP -->
 
 {% endblock %}

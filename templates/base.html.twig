@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Airbnb Kings{% endblock %}</title>
         <meta name="viewport" content="width=device-with, initial-scale=1" />
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -10,6 +10,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+        <link rel="stylesheet" href="{{ asset('dist/css/header.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/hp.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+        <script src="{{ asset('dist/js/main.js') }}"></script>
 
 
         <!-- A supprimer ! ----->
@@ -21,29 +25,93 @@
     </head>
     <body>
         {% block header %}
-
-            <nav>
-                <ul>
-                    <li><a href="{{ path('article') }}">Home -> tous les articles</a></li>
-                    {% if app.user %}
-                    <li><a href="{{ path('create-article') }}">Ecrire un article</a> </li>
-                    <li><a href="{{path('friends-articles')}}">Mon fil -> accès aux articles de mes amis</a> </li>
-                    <li><a href="{{path('app_logout')}}">Se déconnecter</a> </li>
-                    {% else %}
-                    <li><a href="{{path('app_login')}}">Se connecter</a> </li>
-                    <li><a href="{{ path('app_register') }}">S'inscrire</a> </li>
-                    {% endif %}
-
-
-
-                </ul>
-            </nav>
-
+      <!-- PARTIE HEADER -->
+          <header class="header-desktop">
+            <div class="start-header">
+              <img class="main-logo" src="{{ asset('dist/imgs/couronne-or.svg') }}" alt="" />
+              <!-- <div class="main-search">
+                <input type="text" placeholder="Recherchez dans la contrée..." />
+                <img src='./imgs/flag-or.svg' alt='' />
+              </div> -->
+            </div>
+            <div class="end-header">
+              <a href="{{path('home')}}">Dans la contrée</a>
+              <a href="{{path('friends-articles')}}">Le royaume</a>
+              <a href="{{path('home')}}" class='last-link'>Messagerie</a>
+              {% if app.user %}
+              <img class="main-icon-notifs" src="{{ asset('dist/imgs/notifs.svg') }}" alt="" />
+              <div class="main-icon-profil">
+                <img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt="">
+              </div>
+              {% else %}
+              <a href="{{path('app_login')}}">Se connecter</a>
+              <a href="{{ path('app_register') }}">S'inscrire</a>
+              {% endif %}
+            </div>
+          </header>
+          <div class="header-mobile">
+            <div class="start-mobile-header">
+              <img class="main-logo-mobile" src="{{ asset('dist/imgs/couronne-or.svg') }}" alt="" />
+            </div>
+            <div class="end-mobile-header">
+              <div class="main-icon-profil">
+                <img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt="">
+              </div>
+              <img id="menu-mobile-open" class="main-menu-mobile" src="{{ asset('dist/imgs/menu.svg') }}" />
+            </div>
+          </div>
+          <div id="header-mobile-open" class="header-mobile-open">
+            <div class="header-mobile-open-content">
+              <div class="header-mobile-row">
+                <img class="mobile-notifs" src="{{ asset('dist/imgs/notifs.svg') }}" />
+                <img id="menu-mobile-cross" class="mobile-cross" src="{{ asset('dist/imgs/close.svg') }}" />
+              </div>
+              <div class="header-mobile-profil">
+                <div class="main-icon-profil">
+                  <img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt="">
+                </div>
+              </div>
+              <a class="link-to-profil-mobile" href="/">Voir mon profil</a>
+              <hr />
+              <div class="list-menu-mobile">
+                <div class="link-list-menu-mobile">
+                  <img src="{{ asset('dist/imgs/flag-or.svg') }}" alt="" />
+                  <a href="{{path('home')}}">Dans la contrée</a>
+                </div>
+                <div class="link-list-menu-mobile">
+                  <img src="{{ asset('dist/imgs/couronne-argent.svg') }}" alt="" />
+                  <a href="{{path('friends-articles')}}">Le royaume</a>
+                </div>
+                 {% if app.user %}
+                <div class="link-list-menu-mobile">
+                  <img src="{{ asset('dist/imgs/message.svg') }}" alt="" />
+                  <a href="{{path('home')}}">Messagerie</a>
+                </div>
+                <div class="link-list-menu-mobile">
+                  <img src="{{ asset('dist/imgs/deco.svg') }}" alt="" />
+                  <a href="{{path('app_logout')}}">Déconnexion</a>
+                </div>
+                {% else %}
+                <div class="link-list-menu-mobile">
+                  <a href="{{path('app_login')}}">Se connecter</a>
+                </div>
+                <div class="link-list-menu-mobile">
+                  <a href="{{ path('app_register') }}">S'inscrire</a>
+                </div>
+                {% endif %}
+              </div>
+              <div class="link-list-menu-mobile spe">
+                <img src="{{ asset('dist/imgs/couronne-or.svg') }}" alt="" />
+                <a href="{{path('home')}}">Gagner des couronnes</a>
+              </div>
+            </div>
+          </div>
+      <!-- FIN PARTIE HEADER -->
         {% endblock %}
 
             {% block body %}{% endblock %}
 
-        {% block footer %} Footer goes here ! {% endblock %}
+        {% block footer %}  {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

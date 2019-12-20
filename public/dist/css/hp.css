@@ -1,0 +1,132 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.search-part {
+  width: 100%;
+  height: 60vh;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  display:flex;
+  justify-content:center;
+  flex-direction: column;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+}
+
+.title-search {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.search-input {
+  width: 50em;
+  height: 40px;
+  box-shadow: -1px 2px 15px 0px rgba(0,0,0,0.20);
+  border: 0;
+  padding: 1.5em;
+  padding-left: 4em;
+  font-size: 18px;
+  border-radius: 3px;
+  position: relative;
+}
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar img {
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  z-index: 5;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.join-us {
+  background-color: #f1bb3c;
+  padding: 1em 7em;
+  font-size: 18px;
+  color: #fff;
+  font-weight: Bold;
+  border-radius: 3px;
+  margin-top: 2em;
+}
+
+.title-search {
+  margin-bottom: 1em;
+  color: #fff;
+}
+.subtitle-search {
+  margin-top: 0em;
+  margin-bottom: 2em;
+  color: #fff;
+}
+
+@media screen and (max-width: 1024px) {
+  .search-input {
+    width: 40em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-input {
+    width: 30em;
+  }
+  .title-search {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .search-input {
+    width: 10em;
+  }
+  .join-us {
+    padding: 1em 3em;
+  }
+  .subtitle-search {
+    text-align: center;
+  }
+}
+
+.list-host {
+  padding: 2em 1em;
+}
+
+.host-title {
+  display: flex;
+  align-items: center;
+  padding-top: 4em;
+}
+
+.host-title h2 {
+  font-size: 24px;
+  color: #D69C2F;
+  font-weight: bold;
+  margin-right: 2em;
+}
+
+.see-all-host {
+  font-weight: bold;
+  color: #00A699 !important;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .host-title {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .host-title img {
+    display: none;
+  }
+  .host-title h2 {
+    margin-right: 0;
+    text-align: center;
+  }
+}
