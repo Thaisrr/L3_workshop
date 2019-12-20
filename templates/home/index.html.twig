@@ -1,27 +1,117 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+	<!-- HP -->
+	<section>
+		<div class="search-part" style="background-image: url('{{ asset('dist/imgs/lille-bg.png') }}');">
+			<h1 class="title-search">Une communauté aux services de vos voyageurs</h1>
+			<h2 class="subtitle-search">Communiquer, s'entraider, se rejoindre</h2>
+			<div class="search-bar">
+				<img src='{{ asset('dist/imgs/search.svg') }}'/>
+				<input class="search-input" type="text" placeholder="Chercher un hôte, un évènement, une ville, un sujet..."/>
+			</div>
+			<a class="join-us" href="{{path('home')}}">Rejoindre la communauté</a>
+		</div>
+	</section>
+	<section class="list-host container">
+		<div class="host-title">
+			<h2>Les hôtes que vous connaissez peut être</h2>
+			<img src="{{ asset('dist/imgs/fil.png') }}" alt=""/>
+		</div>
+		<div class="container-card-user">
+			{% for u in users %}
+				<div class="card-user">
+					<div class="card-img">
+						<img src="https://i.pravatar.cc/300" alt=""/>
+					</div>
+					<p>{{ u.firstname }}
+						<br/>
+						{{ u.lastname }}</p>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="container-see-all-host">
+			<a href="{{path('home')}}" class="see-all-host">Voir tous les hôtes</a>
+			<img src="{{ asset('dist/imgs/arrow-blue.png') }}" alt=""/>
+		</div>
+	</section>
+	<div class="row-btn">
+		<div class="btn-red-container">
+			<img src="{{ asset('dist/imgs/plume.png') }}" alt=""/>
+			<a href="{{path('friends-articles')}}">Publier</a>
+		</div>
+	</div>
 
-<!-- HP -->
-  <section>
-    <div class="search-part" style="background-image: url('{{ asset('dist/imgs/lille-bg.png') }}');">
-        <h1 class="title-search">Une communauté aux services de vos voyageurs</h1>
-        <h2 class="subtitle-search">Communiquer, s'entraider, se rejoindre</h2>
-        <div class="search-bar">
-          <img src='{{ asset('dist/imgs/search.svg') }}' />
-          <input class="search-input" type="text"
-            placeholder="Chercher un hôte, un évènement, une ville, un sujet..." />
-        </div>
-        <a class="join-us" href="/">Rejoindre la communauté</a>
-      </div>
-  </section>
-  <section class="list-host">
-    <div class="host-title">
-      <h2>Les hôtes que vous connaissez peut être</h2>
-      <img src="{{ asset('dist/imgs/fil.png') }}" alt=""/>
-    </div>
-    <a class="see-all-host">Voir tous les hôtes</a>
-  </section>
-  <!-- FIN HP -->
+	<section class="container">
+		<div class="host-title">
+			<h2>Les nouveautés du royaume</h2>
+			<img src="{{ asset('dist/imgs/fil.png') }}" alt=""/>
+		</div>
+		<div class="list-select-btn">
+			<div class="select-btn">
+				<img src="{{ asset('dist/imgs/idee.png') }}"/>
+				<a href="{{ path('home', {'param':'event'}) }}">Bons plans</a>
+			</div>
+			<div class="select-btn">
+				<img src="{{ asset('dist/imgs/mask.png') }}"/>
+				<a href="{{path( 'home', { 'param': 'plan'})}}">Evenements</a>
+			</div>
+			<div class="select-btn">
+				<img src="{{ asset('dist/imgs/doc.png') }}"/>
+				<a href="{{ path('home', {'param': 'article'}) }}">Récits</a>
+			</div>
+		</div>
+	</section>
+	<div class="list-articles">
+		{% for art in articles %}
+			<div class="card-article">
+				<img src="https://picsum.photos/400/300"/>
+				<h3>{{ art.title }}</h3>
+				<p>{{ art.text }}</p>
+				<blockquote>
+					Autheur :
+					{{ art.author.firstname }}
+					{{ art.author.lastname }}
+				</blockquote>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="container-see-all-host">
+		<a href="{{path('friends-articles')}}" class="see-all-host">Voir tous les posts</a>
+		<img src="{{ asset('dist/imgs/arrow-blue.png') }}" alt=""/>
+	</div>
+	<div class="go-to-map">
+		<a href="{{path('friends-articles')}}">Se balader dans la contrée</a>
+	</div>
 
+	<section class="royaume-part">
+		<div class="host-title">
+			<h2>Régner sur le royaume</h2>
+			<img src="{{ asset('dist/imgs/fil.png') }}" alt=""/>
+		</div>
+		<p class="royaume-main-text">
+			Gagnez des Louis et passez de Duc à Prince, puis de Prince à Roi.
+						      Plus votre statut évolue, plus vous gagnez en visibilité et devenez Superhost.
+		</p>
+		<div class="royaume-list">
+			<div class="royaume-item">
+				<img src="{{ asset('dist/imgs/rond-plume.png') }}"/>
+				<p class="title-royaume">Créez du contenu</p>
+				<p class="text-royaum">Un Roi se doit de partager ses astuces d’expert. 
+					Publiez un post sur un bon plan, un évènement sur Lille ou encore des astuces pour accueillir au mieux ses voyageurs !</p>
+			</div>
+      <div class="royaume-item">
+				<img src="{{ asset('dist/imgs/rond-couronne.png') }}"/>
+				<p class="title-royaume">Devenez parrain</p>
+				<p class="text-royaum">Un roi se doit d’avoir des responsabilités. 
+Parrainez vos amis pour qu’ils deviennent rois du royaume à leur tour.</p>
+			</div>
+      <div class="royaume-item">
+				<img src="{{ asset('dist/imgs/rond-perso.png') }}"/>
+				<p class="title-royaume">Créez du contenu</p>
+				<p class="text-royaum">Plus vos posts sont appréciés, plus vous obtenez des Louis qui vous permettent d’évoluer vers le chemin de la royauté.</p>
+			</div>
+		</div>
+	</section>
+	<!-- FIN HP -->
 {% endblock %}
