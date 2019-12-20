@@ -2,18 +2,46 @@
 
 {% block body %}
 
-    <h1>{{ user.firstname }} {{ user.lastname }}</h1>
+    <div class="form-container">
 
-    <p>{{ user.description }}</p>
-    {% if isMine %}
-    <a href="#">Modifier ma description</a>
-    {% endif %}
+        <div class="form-title-div">
+            <img class="form-img cadre-left" src="{{ asset('dist/imgs/cadre-left.svg') }}">
+            <h1 class="h3 mb-3 font-weight-normal form-title">{{ user.firstname }} {{ user.lastname }}</h1>
+            <img class="form-img cadre-right" src="{{ asset('dist/imgs/cadre-right.svg') }}">
+        </div>
 
-    <h3>Logements</h3>
+        <div class="u-description">
 
-    {% if isMine %}
-    <a href="{{ path('add-address') }}">Ajouter un logement</a>
-    {% endif %}
+            <h4 class="u-title">Description
+                {% if isMine %}
+                    <span class="u-edit" onclick="displayInput()">
+                    <i class="fas fa-pen-nib u-title" ></i>
+                </span>
+                {% endif %}
+            </h4>
+            <div id="form" class="form-container">
+                {{ form(form) }}
+            </div>
+        {% if user.description %}
+            <p class="u-text">{{ user.description }}</p>
+            {% else %}
+            <p class="u-text"> Cet utilisateur n'a pas de description pour l'instant.</p>
+        {% endif %}
+        </div>
+
+
+    {% if user.logements %}
+
+    <h4 class="u-title">Logements
+        {% if isMine %}
+            <span class="u-edit">
+                    <a href="{{ path('add-address') }}">
+                    <i class="fas fa-pen-nib u-title" ></i>
+                    </a>
+                </span>
+        {% endif %}
+    </h4>
+
 
     <div class="example-wrapper">
         {% for log in user.logements %}
@@ -26,9 +54,21 @@
 
     </div>
 
-    <h3>Articles : </h3>
+    {% endif %}
 
-    <div class="example-wrapper">
+    {% if user.articles %}
+
+    <h4 class="u-title">Articles
+        {% if isMine %}
+            <span class="u-edit">
+                    <a href="{{ path('create-article') }}">
+                    <i class="fas fa-pen-nib u-title" ></i>
+                    </a>
+                </span>
+        {% endif %}
+    </h4>
+
+    <div class="card-deck">
 
         {% for art in articles %}
             <div class="card">
@@ -53,6 +93,8 @@
 
     </div>
 
+    {% endif %}
+
 
     {% if isMine == false %}
         {% if isFriend == false %}
@@ -64,7 +106,7 @@
     <p>Vous suivez déjà {{user.firstname}}.</p>
     {% endif %}
 
-    <h3>Amis : </h3>
+    <h4 class="u-title">Amis</h4>
 
     {% for friend in user.getFriends() %}
     <ul>
@@ -75,5 +117,16 @@
         </li>
     </ul>
     {% endfor %}
+
+    </div>
+
+    <script>
+        const input = document.getElementById('form');
+
+        function displayInput() {
+            input.style.display = (input.style.display === 'none')? 'block' : 'none';
+        }
+    </script>
+
 
 {% endblock %}

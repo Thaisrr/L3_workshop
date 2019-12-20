@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{{ asset('dist/css/header.css') }}">
         <link rel="stylesheet" href="{{ asset('dist/css/hp.css') }}">
         <link rel="stylesheet" href="{{ asset('dist/css/forms.css') }}">
+        <link rel="stylesheet" href="{{ asset('dist/css/profile.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
         <script src="{{ asset('dist/js/main.js') }}"></script>
 
@@ -44,6 +45,7 @@
               <div class="main-icon-profil">
                       <img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt="">
               </div>
+                  <a href="{{ path('user-profile', {'id': app.user.id}) }}">Link</a>
               {% else %}
               <a href="{{path('app_login')}}">Se connecter</a>
               <a href="{{ path('app_register') }}">S'inscrire</a>
@@ -68,12 +70,15 @@
                 <img id="menu-mobile-cross" class="mobile-cross" src="{{ asset('dist/imgs/close.svg') }}" />
               </div>
               <div class="header-mobile-profil">
-                <div class="main-icon-profil">
+                  <div class="main-icon-profil">
                   <img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt="">
                 </div>
               </div>
-              <a class="link-to-profil-mobile" href="#">Voir mon profil</a>
-              <hr />
+                {% if app.user %}
+                <a class="link-to-profil-mobile" href="{{ path('user-profile', {'id': app.user.id}) }}">Voir mon profil</a>
+                {% endif %}
+
+                <hr />
               <div class="list-menu-mobile">
                 <div class="link-list-menu-mobile">
                   <img src="{{ asset('dist/imgs/flag-or.svg') }}" alt="" />

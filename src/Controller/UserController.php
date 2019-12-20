@@ -73,7 +73,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/profile.html.twig', [
-            'user' => $user, 'isMine' => $isMine, 'isFriend' => $isFriend, 'articles' => $articles, 'form'=>$form
+            'user' => $user, 'isMine' => $isMine, 'isFriend' => $isFriend, 'articles' => $articles, 'form'=>$form->createView()
         ]);
     }
 
