@@ -67,7 +67,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("profile/article/{id}", name="see-article")
+     * @Route("article/{id}", name="see-article")
      */
     public function seeArticle(int $id, Security $security, Request $request) {
         $repo = $this->getDoctrine()->getRepository(Article::class);
@@ -174,7 +174,6 @@ class ArticleController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($article);
         $entityManager->flush();
-
 
         return $this->redirectToRoute('article');
 

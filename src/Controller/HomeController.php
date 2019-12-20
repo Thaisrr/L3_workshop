@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use http\Client\Curl\User;
+use App\Entity\Logement;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,8 +19,14 @@ class HomeController extends AbstractController {
      * @return
      */
     public function index(Environment $twig, Security $security) {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findAll();
+
+        $repoLog = $this->getDoctrine()->getRepository(Logement::class);
+        $logements = $repoLog->findAll();
 
         return $this->render('home/index.html.twig', [
+            'users' => $users
         ]);
     }
 }

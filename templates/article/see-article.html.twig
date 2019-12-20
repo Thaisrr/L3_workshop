@@ -11,14 +11,18 @@
     </div>
     <div class="card-footer">
         <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
-        {% if art.isLiked == false %}
+        {% if app.user %}
+        {% if art.isLiked == false  %}
             <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
 
         {% else %}
             <p>Vous aimez déjà ce contenu</p>
         {% endif %}
+        {% endif %}
         <button onclick="displayCommentaries()"  title="Voir les commentaires" type="button" class="btn btn-outline-primary"><i class="fa fa-comments"></i></button>
+        {% if app.user %}
         <button onclick="displayComInput()" title="Ajouter un commentaire" class="btn btn-outline-primary"><i class="fa fa-comments"></i></button>
+        {% endif %}
         <div style="display: none" id="commentaries" >
             {% for com in art.commentaries %}
                 <div class="card">
@@ -29,9 +33,11 @@
                 </div>
             {% endfor %}
         </div>
+        {% if app.user %}
         <div style="display: none" id="comInput">
             {{ form(form) }}
         </div>
+        {% endif %}
 
     </div>
 

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use PhpParser\Node\Stmt\Break_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
@@ -27,9 +29,9 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/{id}", name="user-profile")
+     * @Route("/user/{id}/{edit}", name="user-profile")
      */
-    public function seeProfile(int $id, Security $security) {
+    public function seeProfile(int $id, Security $security, Request $request, bool $edit = false) {
         $repo = $this->getDoctrine()->getRepository(User::class);
         $user = new User();
         $user = $repo->find($id);
@@ -52,8 +54,24 @@ class UserController extends AbstractController
             }
         }
 
+        $form = $this->createFormBuilder($user)
+            ->add('description', TextareaType::class)
+            ->add('save', SubmitType::class, ['label' => 'Valider',  'attr' => array( 'class' => 'btn btn-outline-info')])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $article = $form.getData();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $edit = false;
+        }
+
         return $this->render('user/profile.html.twig', [
-            'user' => $user, 'isMine' => $isMine, 'isFriend' => $isFriend, 'articles' => $articles
+            'user' => $user, 'isMine' => $isMine, 'isFriend' => $isFriend, 'articles' => $articles, 'form'=>$form
         ]);
     }
 
@@ -73,6 +91,6 @@ class UserController extends AbstractController
         $entityManager->flush();
 
 
-        return $this->redirectToRoute('article');
+        return $this->redirect($this->generateUrl('profile', array('id' => $id)));
     }
 }
