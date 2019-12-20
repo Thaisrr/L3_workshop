@@ -18,8 +18,11 @@ class HomeController extends AbstractController {
      * @return
      */
     public function index(Environment $twig, Security $security) {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $users = $repo->findAll();
 
         return $this->render('home/index.html.twig', [
+            'users' => $users
         ]);
     }
 }

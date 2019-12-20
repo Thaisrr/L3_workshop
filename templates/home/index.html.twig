@@ -4,6 +4,11 @@
 
 <p>Bienvenue sur l'accueil ! </p>
 
-    <a href="login">Se connecter</a>
+    {% for u in users %}
+
+    <div>
+        <p>{{ u.firstname }} {{ u.lastname }}</p>
+        <p>{{ u.status }}</p>
+    </div>
 
 {% endblock %}

@@ -68,12 +68,25 @@ class User implements UserInterface
      */
     private $commentaries;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $points;
+
     public function __construct()
     {
         $this->address = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->friends = new ArrayCollection();
         $this->commentaries = new ArrayCollection();
+        $this->setRoles(["ROLE_USER"]);
+        $this->setStatus('Duc / Duchesse');
+        $this->setPoints(0);
     }
 
     public function getId(): ?int
@@ -294,6 +307,30 @@ class User implements UserInterface
                 $commentary->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): self
+    {
+        $this->points = $points;
 
         return $this;
     }
