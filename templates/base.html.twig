@@ -40,7 +40,9 @@
       <!-- PARTIE HEADER -->
           <header class="header-desktop">
             <div class="start-header">
-              <img class="main-logo" src="{{ asset('dist/imgs/couronne-or.svg') }}" alt="" />
+              <a href="{{path('home')}}" style="margin: 0;padding: 0; display:block">
+                <img class="main-logo" src="{{ asset('dist/imgs/couronne-or.svg') }}" alt="" />
+              </a>
               <!-- <div class="main-search">
                 <input type="text" placeholder="Recherchez dans la contrée..." />
                 <img src='./imgs/flag-or.svg' alt='' />
@@ -53,9 +55,8 @@
               {% if app.user %}
               <img class="main-icon-notifs" src="{{ asset('dist/imgs/notifs.svg') }}" alt="" />
               <div class="main-icon-profil">
-                      <img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt="">
+                      <a href="{{ path('user-profile', {'id': app.user.id}) }}" style="margin: 0;padding: 0; display:block"><img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt=""></a>
               </div>
-                  <a href="{{ path('user-profile', {'id': app.user.id}) }}">Link</a>
               {% else %}
               <a href="{{path('app_login')}}">Se connecter</a>
               <a href="{{ path('app_register') }}">S'inscrire</a>
@@ -64,11 +65,13 @@
           </header>
           <div class="header-mobile">
             <div class="start-mobile-header">
+             <a href="{{path('home')}}" style="margin: 0;padding: 0; display:block">
               <img class="main-logo-mobile" src="{{ asset('dist/imgs/couronne-or.svg') }}" alt="" />
+              </a>
             </div>
             <div class="end-mobile-header">
               <div class="main-icon-profil">
-                <img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt="">
+                      <a href="{{ path('user-profile', {'id': app.user.id}) }}" style="margin: 0;padding: 0; display:block"><img src="{{ asset('dist/imgs/profil-icon-louis.png') }}" alt=""></a>
               </div>
               <img id="menu-mobile-open" class="main-menu-mobile" src="{{ asset('dist/imgs/menu.svg') }}" />
             </div>
