@@ -18,7 +18,7 @@ class HomeController extends AbstractController {
      * @param Environment $twig
      * @return
      */
-    public function index(Environment $twig, Security $security) {
+    public function index(Environment $twig) {
         $repo = $this->getDoctrine()->getRepository(User::class);
         $users = $repo->findAll();
 
