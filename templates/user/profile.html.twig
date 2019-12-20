@@ -46,8 +46,8 @@
     <div class="example-wrapper">
         {% for log in user.logements %}
         <div class="card">
-            <p>log.title</p>
-            <p>log.description</p>
+            <p>{{ log.title }}</p>
+            <p>{{ log.description }}</p>
         </div>
         {% endfor %}
 
@@ -80,7 +80,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    <p>{{ art.text }}</p>
+                    <p>{{ art.description }}</p>
                 </div>
                 <div class="card-footer">
                     <p>{{ art.likes }} <i class="fa fa-heart"></i></p>

@@ -58,7 +58,7 @@ class UserController extends AbstractController
 
         $form = $this->createFormBuilder($user)
             ->add('description', TextareaType::class)
-            ->add('save', SubmitType::class, ['label' => 'Valider',  'attr' => array( 'class' => 'btn btn-outline-info')])
+            ->add('save', SubmitType::class, ['label' => 'Valider',  'attr' => array( 'class' => 'btn btn-outline-dark')])
             ->getForm();
 
         $form->handleRequest($request);

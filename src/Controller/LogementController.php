@@ -52,7 +52,7 @@ class LogementController extends AbstractController
             $entityManager->persist($log);
             $entityManager->flush();
 
-            return $this->redirect($this->generateUrl('profile', array('id' => $log->getOwner()->getId())));
+            return $this->redirect($this->generateUrl('user-profile', array('id' => $log->getOwner()->getId())));
 
 
         }

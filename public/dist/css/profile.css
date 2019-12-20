@@ -11,3 +11,30 @@
     text-align: left;
 }
 
+.a-description {
+    text-align: center;
+    font-style: italic;
+    margin: 25px auto;
+    width: 70%;
+}
+
+.a-text {
+    text-indent: 20px;
+}
+
+.a-link {
+    color: #00A699 ;
+}
+
+a-link:hover {}
+
+
+.a-button {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.a-btn {
+    width: 40%;
+}

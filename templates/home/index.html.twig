@@ -67,12 +67,16 @@
 			<div class="card-article">
 				<img src="https://picsum.photos/400/300"/>
 				<h3>{{ art.title }}</h3>
-				<p>{{ art.text }}</p>
+				<p>{{ art.description }}</p>
 				<blockquote>
 					Autheur :
 					{{ art.author.firstname }}
 					{{ art.author.lastname }}
 				</blockquote>
+				<div class="card-footer">
+					<p>{{ art.likes }} <i class="fa fa-heart"></i></p>
+					<a type="button" class="btn btn-outline-dark" href="{{ path('see-article', {'id': art.id}) }}">Lire l'article</a>
+				</div>
 			</div>
 		{% endfor %}
 	</div>

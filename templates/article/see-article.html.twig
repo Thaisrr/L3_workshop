@@ -1,28 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-        <h1 class="card-title">{{ art.title }}</h1>
+    <div class="form-container">
+        <h1 class="card-title u-title">{{ art.title }}</h1>
         <hr>
-        <a href="{{ path('user-profile', {'id' : art.author.id}) }}" title="Voir le profil">
+        <a class="a-link" href="{{ path('user-profile', {'id' : art.author.id}) }}" title="Voir le profil">
             <blockquote>{{ art.author.firstname }} {{ art.author.lastname }}</blockquote>
         </a>
     <div class="card-body">
-        <p>{{ art.text }}</p>
+        <div class="a-description">
+            {{ art.description }}
+            <hr>
+        </div>
+        <div class="a-text">{{ art.text }}</div>
     </div>
     <div class="card-footer">
-        <p>{{ art.likes }} <i class="fa fa-heart"></i></p>
+        <div>{{ art.likes }} <i class="fa fa-heart"></i>
         {% if app.user %}
         {% if art.isLiked == false  %}
-            <a type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
+            <a class="a-link" type="button" href="{{ path('like', { 'id' : art.id}) }}">J'aime</a>
 
         {% else %}
-            <p>Vous aimez déjà ce contenu</p>
+            <span><em>Vous aimez déjà ce contenu</em></span>
         {% endif %}
         {% endif %}
-        <button onclick="displayCommentaries()"  title="Voir les commentaires" type="button" class="btn btn-outline-primary"><i class="fa fa-comments"></i></button>
+        </div>
+        <div class="a-button">
+        <button onclick="displayCommentaries()"  title="Voir les commentaires" type="button" class="btn form-btn a-btn">Voir les commentaires</button>
         {% if app.user %}
-        <button onclick="displayComInput()" title="Ajouter un commentaire" class="btn btn-outline-primary"><i class="fa fa-comments"></i></button>
+        <button onclick="displayComInput()" title="Ajouter un commentaire" class="btn form-btn a-btn">Rédiger un commentaire</button>
         {% endif %}
+        </div>
         <div style="display: none" id="commentaries" >
             {% for com in art.commentaries %}
                 <div class="card">
@@ -39,6 +47,7 @@
         </div>
         {% endif %}
 
+    </div>
     </div>
 
 </div>
