@@ -28,7 +28,7 @@ class ArticleFormType extends AbstractType
                 'attr' => ['maxlength' => 255]
             ])
             ->add('text', TextareaType::class, [
-                'label' => 'Dites bonjour à vos amis !',
+                'label' => 'Votre missive!',
                 'required' => true
             ])
             ->add('subject')

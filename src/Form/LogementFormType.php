@@ -15,8 +15,8 @@ class LogementFormType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Nom de votre logement',
-                ['attr' => ['maxlength' => 100]]
+                'label' => 'Nom',
+                'attr' => ['maxlength' => 100]
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',

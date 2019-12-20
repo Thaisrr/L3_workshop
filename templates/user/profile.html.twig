@@ -7,11 +7,13 @@
     <p>{{ user.description }}</p>
     {% if isMine %}
     <a href="#">Modifier ma description</a>
+    {% endif %}
 
     <h3>Logements</h3>
 
     {% if isMine %}
-    <a href="add-logement">Ajouter un logement</a>
+    <a href="{{ path('add-address') }}">Ajouter un logement</a>
+    {% endif %}
 
     <div class="example-wrapper">
         {% for log in user.logements %}
@@ -19,6 +21,7 @@
             <p>log.title</p>
             <p>log.description</p>
         </div>
+        {% endfor %}
 
 
     </div>

@@ -83,6 +83,12 @@ class User implements UserInterface
      */
     private $description;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Logement", mappedBy="owner", orphanRemoval=true)
+     */
+    private $logements;
+
+
     public function __construct()
     {
         $this->address = new ArrayCollection();
@@ -92,6 +98,7 @@ class User implements UserInterface
         $this->setRoles(["ROLE_USER"]);
         $this->setStatus('Duc / Duchesse');
         $this->setPoints(0);
+        $this->logements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -348,6 +355,37 @@ class User implements UserInterface
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Logement[]
+     */
+    public function getLogements(): Collection
+    {
+        return $this->logements;
+    }
+
+    public function addLogement(Logement $logement): self
+    {
+        if (!$this->logements->contains($logement)) {
+            $this->logements[] = $logement;
+            $logement->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogement(Logement $logement): self
+    {
+        if ($this->logements->contains($logement)) {
+            $this->logements->removeElement($logement);
+            // set the owning side to null (unless already changed)
+            if ($logement->getOwner() === $this) {
+                $logement->setOwner(null);
+            }
+        }
 
         return $this;
     }

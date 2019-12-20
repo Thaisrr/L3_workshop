@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class LogementController extends AbstractController
 {
@@ -26,15 +27,20 @@ class LogementController extends AbstractController
     }
 
     /**
-     * @Route("/add-logement", name="add-logement")
+     * @Route("/add-logement/{id}", name="add-logement")
      */
-    public function createLogement(Request $request) {
+    public function createLogement(int $id, Request $request, Security $security) {
         $log = new Logement();
+        $log->setOwner($security->getUser());
+
+        $repo = $this->getDoctrine()->getRepository(Address::class);
+        $add = $repo->find($id);
+        $log->setAddress($add);
         $form = $this->createForm(LogementFormType::class, $log);
 
         $form->add('valider', SubmitType::class, [
             'label' => 'Ajouter',
-            'attr' => array( 'class' => 'btn btn-outline-info')
+            'attr' => array( 'class' => 'btn form-btn')
         ]);
 
         $form->handleRequest($request);
@@ -46,7 +52,9 @@ class LogementController extends AbstractController
             $entityManager->persist($log);
             $entityManager->flush();
 
-            return $this->redirectToRoute('add-address');
+            return $this->redirect($this->generateUrl('profile', array('id' => $log->getOwner()->getId())));
+
+
         }
         return $this->render('logement/logement-form.html.twig', [
             'form' => $form->createView()
@@ -57,19 +65,19 @@ class LogementController extends AbstractController
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("profile/add-address/{id}", name="add-address")
+     * @Route("profile/add-address", name="add-address")
      */
-    public function addAdress(int $id, Request $request)
+    public function addAdress( Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(Logement::class);
-        $log = $repo->find($id);
+      //  $repo = $this->getDoctrine()->getRepository(Logement::class);
+      //  $log = $repo->find($id);
         $add = new Address();
-        $add->setLogement($log);
+       // $add->setLogement($log);
         $form = $this->createForm(AddressFormType::class, $add);
 
         $form->add('valider', SubmitType::class, [
-            'label' => 'Valider',
-            'attr' => array('class' => 'btn btn-outline-info')
+            'label' => 'Suivant',
+            'attr' => array('class' => 'btn form-btn')
         ]);
 
         $form->handleRequest($request);
@@ -81,7 +89,8 @@ class LogementController extends AbstractController
             $entityManager->persist($add);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home');
+
+            return $this->redirect($this->generateUrl('add-logement', array('id' => $add->getId())));
 
         }
         return $this->render('logement/logement-form.html.twig', [

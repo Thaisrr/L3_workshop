@@ -14,7 +14,7 @@ class CommentaryFormType extends AbstractType
     {
         $builder
             ->add('text', TextareaType::class, [
-                'label' => 'Votre commentaire !',
+                'label' => 'Votre commentaire ',
                 'required' => true,
                 'attr' => ['maxlength' => 500]
             ]);

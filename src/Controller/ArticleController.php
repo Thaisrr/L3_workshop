@@ -67,7 +67,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("article/{id}", name="see-article")
+     * @Route("see-article/{id}", name="see-article")
      */
     public function seeArticle(int $id, Security $security, Request $request) {
         $repo = $this->getDoctrine()->getRepository(Article::class);
@@ -80,7 +80,7 @@ class ArticleController extends AbstractController
         $form = $this->createForm(CommentaryFormType::class, $commentary);
         $form->add('ajouter', SubmitType::class, [
             'label' => 'Ajouter',
-            'attr' => array( 'class' => 'btn btn-outline-info')
+            'attr' => array( 'class' => 'btn form-btn')
         ]);
         $form->handleRequest($request);
 
@@ -90,7 +90,9 @@ class ArticleController extends AbstractController
             $entityManager->persist($commentary);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article');
+            return $this->redirect($this->generateUrl('see-article', array('id' => $id)));
+
+
         }
 
         return $this->render('article/see-article.html.twig', [
@@ -139,7 +141,7 @@ class ArticleController extends AbstractController
 
         $form->add('ajouter', SubmitType::class, [
             'label' => 'Ajouter',
-            'attr' => array( 'class' => 'btn btn-outline-info')
+            'attr' => array( 'class' => 'form-btn btn')
         ]);
 
         $form->handleRequest($request);
@@ -151,7 +153,9 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article');
+            return $this->redirect($this->generateUrl('article', array('id' => $article->getId())));
+
+
         }
 
 
