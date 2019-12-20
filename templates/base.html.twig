@@ -18,11 +18,21 @@
         <script src="{{ asset('dist/js/main.js') }}"></script>
 
 
-        <!-- A supprimer ! ----->
-        <style>
-            .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; display: flex; justify-content: space-evenly}
-            .card { width: 40%; border: black thin solid; margin: 20px}
-        </style>
+		<!-- A supprimer ! ----->
+		<style>
+			.example-wrapper {
+				margin: 1em auto;
+				max-width: 800px;
+				width: 95%;
+				display: flex;
+				justify-content: space-evenly
+			}
+			.card {
+				width: 40%;
+				border: black thin solid;
+				margin: 20px
+			}
+		</style>
 
     </head>
     <body>
@@ -115,9 +125,50 @@
       <!-- FIN PARTIE HEADER -->
         {% endblock %}
 
-            {% block body %}{% endblock %}
+		{% block body %}{% endblock %}
 
-        {% block footer %}  {% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+		{% block footer %}
+
+			<footer>
+				<div class="footer-row">
+					<div class="footer-content">
+						<h4>Dans la contrée</h4>
+						<p>page</p>
+					</div>
+					<div class="footer-content">
+						<h4>Le royaume</h4>
+						<p>Bons plans</p>
+            <p>Evenements</p>
+            <p>Récits</p>
+					</div>
+					<div class="footer-content">
+						<h4>Messagerie</h4>
+						<p>page</p>
+					</div>
+					<div class="footer-content">
+						<h4>Mon profil</h4>
+						<p>Les terres</p>
+            <p>Les récits</p>
+            <p>Les posts appréciés</p>
+					</div>
+				</div>
+				<div class="footer-row">
+					<div class="footer-content">
+						<h4>Airbnb</h4>
+						<p>Retourner sur
+							<span>www.airbnb.fr</span>
+						</p>
+					</div>
+          <div class="footer-content">
+						 <img src="{{ asset('dist/imgs/logo.svg') }}" alt=""/>
+					</div>
+				</div>
+			</footer>
+      <div style="margin: 2em">
+        <hr />
+        <p class='droits'>Tous droits réservés</p>
+      </div>
+		{% endblock %}
+		{% block javascripts %}{% endblock %}
+	</body>
 </html>
