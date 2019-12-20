@@ -21,54 +21,43 @@ class ArticleController extends AbstractController
 {
 
     /**
-     * @Route("article", name="article")
+     * @Route("article/{param}", name="article")
      */
-    public function index()
+    public function index(string $param = "")
     {
         $repo = $this->getDoctrine()->getRepository(Article::class);
         $articles = $repo->findAll();
+        $events = [];
+        $plans = [];
+        $posts = [];
 
-     /*   $repoSubject = $this->getDoctrine()->getRepository(Subject::class);
-        $subjects = $repoSubject->findAll();
-        $event = new Subject();
-        $plan = new Subject();
-        $article = new Subject();
-        foreach ($subjects as $s) {
-            $name = $s->getName();
-            switch ($name) {
-                case "events" || "event":
-                    $event = $s;
+        foreach($articles as $art)  {
+            switch ($art->getSubject()->getName()) {
+                case 'Evénements' :
+                    array_push($events, $art);
                     break;
-                case "plan" || "plans" :
-                    $plan = $s;
+                case 'Bons Plans' :
+                    array_push($plans, $art);
                     break;
-                case "article" || "articles":
-                    $article = $s;
-                    break;
+                case 'Articles':
+                    array_push($posts, $art);
             }
         }
 
 
         switch ($param) {
             case "event":
-                $articles = $repo->findBy(
-                    array('subject' => $event)
-                );
-                echo $param;
+                $articles = $events;
                 break;
             case "plan":
-                $articles = $repo->findBy(
-                    array('subject' => $plan)
-                );
+                $articles = $plans;
                 break;
             case "article":
-                  $articles = $repo->findBy(
-                      array('subject' => $article)
-                  );
+                  $articles = $posts;
                 break;
             default:
                 $articles = $repo->findAll();
-        } */
+        }
 
 
 
