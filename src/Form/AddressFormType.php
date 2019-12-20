@@ -2,29 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\Commentary;
+use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommentaryFormType extends AbstractType
+class AddressFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('text', TextareaType::class, [
-                'label' => 'Votre commentaire !',
-                'required' => true,
-                'attr' => ['maxlength' => 500]
-            ]);
+            ->add('number')
+            ->add('street')
+            ->add('zipcode')
+            ->add('city')
+            ->add('country')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Commentary::class,
+            'data_class' => Address::class,
         ]);
     }
 }

@@ -6,9 +6,10 @@
 
     {% for u in users %}
 
-    <div>
+    <div class="card">
         <p>{{ u.firstname }} {{ u.lastname }}</p>
         <p>{{ u.status }}</p>
     </div>
+    {% endfor %}
 
 {% endblock %}

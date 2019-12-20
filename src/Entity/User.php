@@ -78,6 +78,11 @@ class User implements UserInterface
      */
     private $points;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->address = new ArrayCollection();
@@ -331,6 +336,18 @@ class User implements UserInterface
     public function setPoints(int $points): self
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

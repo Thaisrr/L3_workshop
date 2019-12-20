@@ -4,6 +4,25 @@
 
     <h1>{{ user.firstname }} {{ user.lastname }}</h1>
 
+    <p>{{ user.description }}</p>
+    {% if isMine %}
+    <a href="#">Modifier ma description</a>
+
+    <h3>Logements</h3>
+
+    {% if isMine %}
+    <a href="add-logement">Ajouter un logement</a>
+
+    <div class="example-wrapper">
+        {% for log in user.logements %}
+        <div class="card">
+            <p>log.title</p>
+            <p>log.description</p>
+        </div>
+
+
+    </div>
+
     <h3>Articles : </h3>
 
     <div class="example-wrapper">
